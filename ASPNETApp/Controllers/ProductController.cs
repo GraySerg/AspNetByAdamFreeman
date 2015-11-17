@@ -15,7 +15,7 @@ namespace SportsStore.WebUI.Controllers
         {
             this.repository = repository;
         }
-        const int PageSize = 3;
+        public int PageSize = 3;
         
         public ViewResult List(string Category, int page = 1)
         {

@@ -14,7 +14,7 @@ namespace SportsStore.WebUI.Controllers
         {
             this.repository = repository;
         }
-        // GET: Nav
+        
         public PartialViewResult Menu(string category)
         {
             ViewBag.SelectedCategory = category;
