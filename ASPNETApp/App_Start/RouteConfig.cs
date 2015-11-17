@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace ASPNETApp
+namespace SportsStore.WebUI
 {
     public class RouteConfig
     {
@@ -13,10 +13,12 @@ namespace ASPNETApp
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(null, "Page{page}", new { controller = "Product", action = "List" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Product", action = "List", id = UrlParameter.Optional }
             );
         }
     }

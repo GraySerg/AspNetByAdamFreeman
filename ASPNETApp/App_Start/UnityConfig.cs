@@ -1,8 +1,12 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using Moq;
+using System.Collections.Generic;
+using SportsStore.Domain.Entities;
+using SportsStore.Domain.Abstract;
 
-namespace ASPNETApp.App_Start
+namespace SportsStore.WebUI.App_Start
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.
@@ -35,8 +39,7 @@ namespace ASPNETApp.App_Start
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            // TODO: Register your types here
-            // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IProductRepository, SportsStore.Domain.Concrete.EFProductRepository>();
         }
     }
 }
