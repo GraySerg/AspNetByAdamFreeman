@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ASPNETApp.Controllers
+namespace SportsStore.WebUI.Controllers
 {
     public class ProductController : Controller
     {
@@ -15,13 +15,16 @@ namespace ASPNETApp.Controllers
         {
             this.repository = repository;
         }
-        const int PageSize = 4;
-        // GET: Product
-        public ViewResult List(int page = 1)
+        const int PageSize = 3;
+        
+        public ViewResult List(string Category, int page = 1)
         {
+            var query = repository.Products;
+            if (!string.IsNullOrWhiteSpace(Category))
+                query = query.Where(x => x.Category == Category);
             ProductsListViewModel model = new ProductsListViewModel
             {
-                Products = repository.Products
+                Products = query
 .OrderBy(p => p.ProductID)
 .Skip((page - 1) * PageSize)
 .Take(PageSize),
@@ -29,8 +32,9 @@ namespace ASPNETApp.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Products.Count()
-                }
+                    TotalItems = query.Count()
+                     
+                }, CurrentCategory = Category
             };
             return View(model);
         }
