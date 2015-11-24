@@ -5,6 +5,8 @@ using Moq;
 using System.Collections.Generic;
 using SportsStore.Domain.Entities;
 using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Concrete;
+using System.Configuration;
 
 namespace SportsStore.WebUI.App_Start
 {
@@ -40,6 +42,12 @@ namespace SportsStore.WebUI.App_Start
             // container.LoadConfiguration();
 
             container.RegisterType<IProductRepository, SportsStore.Domain.Concrete.EFProductRepository>();
+            EmailSettings emailSettings = new EmailSettings
+            {
+                WriteAsFile = bool.Parse(ConfigurationManager
+.AppSettings["Email.WriteAsFile"] ?? "false")
+            };
+            container.RegisterType<IOrderProcessor, SportsStore.Domain.Concrete.EmailOrderProcessor>(new InjectionConstructor(emailSettings));
         }
     }
 }
